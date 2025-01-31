@@ -4,7 +4,7 @@ namespace TextRPG
 {
     internal class Game
     {
-        static readonly Dictionary<int, SceneBase> _gameScenes = new Dictionary<int, SceneBase>
+        static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
         {
             {1,new StateScene(1) },
             {2,new InventoryScene(2) },
@@ -21,8 +21,8 @@ namespace TextRPG
 
         static public void Initialize()
         {
-            GameManager.DisplayScene(_gameScenes);
-            GameManager.SelectScene(_gameScenes);
+            GameManager.DisplayScene(_nextScenes);
+            GameManager.SelectScene(_nextScenes);
         }
     }
 }

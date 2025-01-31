@@ -5,7 +5,7 @@ namespace TextRPG
 {
     internal class StateScene : SceneBase
     {
-        static readonly Dictionary<int, SceneBase> _stateScenes = new Dictionary<int, SceneBase>
+        static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
         {
             {0,new ReturnScene(0) },
         };
@@ -35,8 +35,8 @@ namespace TextRPG
             Console.WriteLine($"체력 : {state.Hp}");
             Console.WriteLine($"Gold : {state.Gold} G");
 
-            GameManager.DisplayScene(_stateScenes);
-            GameManager.SelectScene(_stateScenes);
+            GameManager.DisplayScene(_nextScenes);
+            GameManager.SelectScene(_nextScenes);
         }
 
         /// <summary>
