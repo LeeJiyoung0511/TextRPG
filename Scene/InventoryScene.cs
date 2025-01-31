@@ -11,8 +11,6 @@ namespace TextRPG
             {2,new ReturnScene(2) },
         };
 
-        private Item[] _haveItems = new Item[] { };
-
         public InventoryScene(int number) : base(number)
         {
             SceneName = "인벤토리";
@@ -21,11 +19,11 @@ namespace TextRPG
 
         public override void Display()
         {
-            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n\n[아이템목록]");
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n\n[아이템목록]\n");
 
-            for (int i = 0; i < _haveItems.Length; i++)
+            for (int i = 0; i < DataManager.HaveItems.Count; i++)
             {
-                Console.WriteLine($"-{_haveItems[i].GetItemInfo}");
+                Console.WriteLine($"- {DataManager.HaveItems[i].GetItemInfo()}");
             }
 
             base.Display();

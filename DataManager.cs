@@ -1,6 +1,4 @@
-﻿using TextRPG.Scene;
-
-namespace TextRPG
+﻿namespace TextRPG
 {
     internal class DataManager
     {
@@ -27,7 +25,7 @@ namespace TextRPG
             new Item()
             {
                 Name = "낡은 검",
-                Description = "쉽게 볼 수 있는 낡은 검 입니다/",
+                Description = "쉽게 볼 수 있는 낡은 검 입니다.",
                 AttackPower =2
             },
             new Item()
@@ -52,7 +50,7 @@ namespace TextRPG
         };
 
         static public ShopItem[] ShopItemDatas = new ShopItem[]
- {
+        {
             new ShopItem()
             {
                 ItemData = ItemDatas[0],
@@ -89,5 +87,7 @@ namespace TextRPG
                 Price=9999,
             },
         };
+
+        static public List<Item> HaveItems = new List<Item>();
     }
 }
