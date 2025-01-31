@@ -13,19 +13,14 @@ namespace TextRPG
         public StateScene(int number) : base(number)
         {
             SceneName = "상태보기";
+            NextScenes = _nextScenes;
         }
 
-        public override void OnStart()
-        {
-            base.OnStart();           
-            DisplayState();
-        }
-
-        private void DisplayState()
+        public override void Display()
         {
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
 
-            State state = new State();
+            State state = GameManager.State;
 
             string levelResult = string.Format("Lv. {0:D2}", state.Level);
             Console.WriteLine(levelResult);
@@ -35,8 +30,7 @@ namespace TextRPG
             Console.WriteLine($"체력 : {state.Hp}");
             Console.WriteLine($"Gold : {state.Gold} G");
 
-            GameManager.DisplayScene(_nextScenes);
-            GameManager.SelectScene(_nextScenes);
+            base.Display();
         }
 
         /// <summary>

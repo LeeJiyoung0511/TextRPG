@@ -2,6 +2,8 @@
 {
     internal class GameManager
     {
+        static public State State { get; set; }
+
         //행동 표시
         static public void DisplayScene(Dictionary<int, SceneBase> dic)
         {

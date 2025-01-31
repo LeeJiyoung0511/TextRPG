@@ -31,11 +31,12 @@ namespace TextRPG
 
             if (AttackPower != 0)
             {
-                sb.Append($" | 공격력 +{AttackPower} |");
+                sb.Append($" | 공격력 + {AttackPower} |");
             }
-            if (DefensePower == 0)
+
+            if (DefensePower != 0)
             {
-                sb.Append($" | 방어력 +{DefensePower} |");
+                sb.Append($" | 방어력 + {DefensePower} |");
             }
 
             sb.Append(Description);

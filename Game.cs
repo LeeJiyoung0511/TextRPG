@@ -21,6 +21,8 @@ namespace TextRPG
 
         static public void Initialize()
         {
+            GameManager.State = new State();
+
             GameManager.DisplayScene(_nextScenes);
             GameManager.SelectScene(_nextScenes);
         }
