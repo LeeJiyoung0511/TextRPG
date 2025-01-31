@@ -1,0 +1,39 @@
+﻿namespace TextRPG
+{
+    internal class GameManager
+    {
+        //행동 표시
+        static public void DisplayScene(Dictionary<int, SceneBase> dic)
+        {
+            foreach (var action in dic)
+            {
+                action.Value.PrintInfo();
+            }
+        }
+
+        //행동 선택
+        static public void SelectScene(Dictionary<int, SceneBase> dic)
+        {
+            string inputSceneNumber = "";
+            int sceneNumber = 0;
+
+            while (true)
+            {
+                Console.Write("\n원하시는 행동을 입력해주세요.\n>>");
+                inputSceneNumber = Console.ReadLine();
+                sceneNumber = int.Parse(inputSceneNumber);
+
+                if (!dic.ContainsKey(sceneNumber))
+                {
+                    Console.WriteLine("잘못된 입력입니다");
+                    continue;
+                }
+                else
+                {
+                    dic[sceneNumber].OnStart();
+                    break;
+                }
+            }
+        }
+    }
+}
