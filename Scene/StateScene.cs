@@ -79,9 +79,9 @@ namespace TextRPG
         {
             if (addDP != 0)
             {
-                return $"공격력 : {dP} (+{addDP})";
+                return $"방어력 : {dP} (+{addDP})";
             }
-            return $"공격력 : {dP}";
+            return $"방어력 : {dP}";
         }
     }
 }

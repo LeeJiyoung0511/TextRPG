@@ -13,16 +13,20 @@ namespace TextRPG
 
         static void Main(string[] args)
         {
-            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다." +
-                "\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\n");
-
             Initialize();
+            NextAction();
         }
 
-        static public void Initialize()
+        static private void Initialize()
         {
             GameManager.State = new State();
 
+            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다." +
+                "\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\n");
+        }
+
+        static public void NextAction()
+        {
             GameManager.DisplayScene(_nextScenes);
             GameManager.SelectScene(_nextScenes);
         }
