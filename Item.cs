@@ -2,13 +2,31 @@
 
 namespace TextRPG
 {
+    public enum ItemType
+    {
+        Weapon,
+        Armor
+    }
+
     internal class Item
     {
         public string Name;
         public string Description;
         public float AttackPower;
         public float DefensePower;
-        public bool IsEquipped;
+        public bool IsEquipped
+        {
+            get => isEquipped;
+            set
+            {
+                isEquipped = value;
+                UpdateEquipState();
+            }
+        }
+        private bool isEquipped = false;
+
+        public int OrderNumber;
+        public ItemType ItemType;
 
         public Item()
         {
@@ -16,7 +34,7 @@ namespace TextRPG
             Description = "";
             AttackPower = 0f;
             DefensePower = 0f;
-            IsEquipped = false;
+            OrderNumber = 0;
         }
 
         public string GetItemInfo()
@@ -44,5 +62,22 @@ namespace TextRPG
             return sb.ToString();
         }
 
+        private void UpdateEquipState()
+        {
+            if(IsEquipped)
+            {
+                DataManager.EquippedItems.Add(ItemType, this);
+                GameManager.State.AddAttackPower += AttackPower;
+                GameManager.State.AddDefensePower += DefensePower;
+                Console.WriteLine($"{Name}을 장착했습니다\n");
+            }
+            else
+            {
+                DataManager.EquippedItems.Remove(ItemType);
+                GameManager.State.AddAttackPower -= AttackPower;
+                GameManager.State.AddDefensePower -= DefensePower;
+                Console.WriteLine($"{Name}을 장착해제했습니다\n");
+            }
+        }
     }
 }

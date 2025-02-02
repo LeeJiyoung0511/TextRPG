@@ -24,10 +24,10 @@ namespace TextRPG
         public override void Display()
         {
             DisplayShopItem(true);
-            PurchaseItem();
+            ExecutePurchaseItem();
         }
 
-        public void PurchaseItem()
+        public void ExecutePurchaseItem()
         {
             string inputNumber = "";
             int number = 0;
