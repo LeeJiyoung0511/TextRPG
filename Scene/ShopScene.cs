@@ -1,4 +1,5 @@
-﻿using TextRPG.Scene;
+﻿using System.Text;
+using TextRPG.Scene;
 
 namespace TextRPG
 {
@@ -18,16 +19,28 @@ namespace TextRPG
 
         public override void Display()
         {
+            DisplayShopItem();
+            base.Display();
+        }
+
+        public void DisplayShopItem(bool isPurchaseScene = false)
+        {
             Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다");
             Console.WriteLine($"\n[보유골드]\n{GameManager.State.Gold}G\n");
             Console.WriteLine("[아이템목록]\n");
 
-            foreach (var shopItem in DataManager.ShopItemDatas)
-            {
-                Console.WriteLine("- " + shopItem.GetShopItemInfo() + "\n");
-            }
+            ShopItem[] shopItems = DataManager.ShopItemDatas;
 
-            base.Display();
+            for (int i = 0; i < shopItems.Length; i++)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("- ");
+                if (isPurchaseScene)
+                {
+                    sb.Append($"{i + 1}.");
+                }
+                Console.WriteLine($"{sb}{shopItems[i].GetShopItemInfo()}\n");
+            }
         }
     }
 }

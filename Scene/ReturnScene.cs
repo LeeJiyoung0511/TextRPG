@@ -7,7 +7,7 @@
             SceneName = "나가기";
         }
 
-        public override void OnStart()
+        public override void OnStart(string sceneName)
         {
             Console.Clear();
             Game.Initialize();

@@ -18,9 +18,13 @@
             Console.WriteLine($"\n{SceneNumber}. {SceneName}");
         }
 
-        public virtual void OnStart()
+        public virtual void OnStart(string sceneName = "")
         {
-            Console.WriteLine(SceneName);
+            if (String.IsNullOrEmpty(sceneName))
+            {
+                sceneName = SceneName;
+            }
+            Console.WriteLine(sceneName);
             Display();
         }
 

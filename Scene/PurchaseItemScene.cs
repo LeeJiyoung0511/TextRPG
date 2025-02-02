@@ -1,6 +1,8 @@
-﻿namespace TextRPG
+﻿using System.Text;
+
+namespace TextRPG
 {
-    internal class PurchaseItemScene : SceneBase
+    internal class PurchaseItemScene : ShopScene
     {
         static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
         {
@@ -13,24 +15,16 @@
             NextScenes = _nextScenes;
         }
 
-        public override void Display()
+        public override void OnStart(string sceneName = "")
         {
-            Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다");
-            Console.WriteLine($"\n[보유골드]\n{GameManager.State.Gold}G\n");
-            Console.WriteLine("[아이템목록]\n");
-
-            DisplayShopItem();
-            PurchaseItem();
+            sceneName = $"상점 - {SceneName}";
+            base.OnStart(sceneName);
         }
 
-        private void DisplayShopItem()
+        public override void Display()
         {
-            ShopItem[] shopItems = DataManager.ShopItemDatas;
-
-            for (int i = 0; i < shopItems.Length; i++)
-            {
-                Console.WriteLine($"-{i + 1}. {shopItems[i].GetShopItemInfo()}\n");
-            }
+            DisplayShopItem(true);
+            PurchaseItem();
         }
 
         public void PurchaseItem()
