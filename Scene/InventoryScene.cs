@@ -5,7 +5,6 @@ namespace TextRPG
 {
     internal class InventoryScene : SceneBase
     {
-
         static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
         {
             {1,new EquipScene(1) },

@@ -20,10 +20,9 @@ namespace TextRPG
         public float baseDefensePower;
         public float AddDefensePower;
 
-        public float Hp;
-        public long Gold => _Gold;
+        public Hp Hp;
 
-        private long _Gold;
+        public Gold Gold;
 
         public State()
         {
@@ -34,22 +33,8 @@ namespace TextRPG
             baseDefensePower = 5;
             AddAttackPower = 0;
             AddDefensePower = 0;
-            Hp = 100;
-            _Gold = 1500;
-        }
-
-        public void DecreaseGold(long gold)
-        {
-            if (IsDecreaseGold(gold))
-            {
-                _Gold -= gold;
-                Console.WriteLine($"보유 골드는 {Gold}G 입니다\n");
-            }
-        }
-
-        public bool IsDecreaseGold(long gold)
-        {
-            return _Gold - gold >= 0;
+            Hp = new Hp(100);
+            Gold = new Gold(1500);
         }
     }
 }

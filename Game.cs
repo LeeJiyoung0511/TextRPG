@@ -8,7 +8,8 @@ namespace TextRPG
         {
             {1,new StateScene(1) },
             {2,new InventoryScene(2) },
-            {3,new ShopScene(3) }
+            {3,new ShopScene(3) },
+            {5,new RestScene(5) }
         };
 
         static void Main(string[] args)
