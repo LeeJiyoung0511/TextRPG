@@ -38,7 +38,7 @@
 
             while (true)
             {
-                GameManager.DisplayScene(_nextScenes);
+                base.Display();
 
                 Console.Write("\n원하시는 행동을 입력해주세요.\n>>");
                 inputNumber = Console.ReadLine();
@@ -50,6 +50,12 @@
                     break;
                 }
 
+                if (!GameData.IsCanEntryDungeon)
+                {
+                    TextPrintManager.ColorWriteLine("이대로 가다간 기절해요! 회복하고 오세요!", ConsoleColor.DarkRed);
+                    continue;
+                }
+
                 selectedDungeon = DataManager.DungeonDatas.FirstOrDefault(x=>x.Id == number);
                 if (selectedDungeon == null)
                 {
@@ -57,8 +63,8 @@
                 }
                 else
                 {
-                    float currentAP = GameManager.Player.Stat.AttackPower;
-                    float currentDP = GameManager.Player.Stat.DefensePower;
+                    float currentAP = GameData.Player.Stat.AttackPower;
+                    float currentDP = GameData.Player.Stat.DefensePower;
                     selectedDungeon.EntryDungeon(currentDP,currentAP);
                 }
                 continue;

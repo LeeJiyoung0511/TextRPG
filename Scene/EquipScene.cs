@@ -10,6 +10,7 @@
         public EquipScene(int number) : base(number)
         {
             SceneName = "장착관리";
+            NextScenes = _nextScenes;
         }
 
         public override void OnStart(string sceneName)
@@ -41,7 +42,7 @@
 
             while (true)
             {
-                GameManager.DisplayScene(_nextScenes);
+                DisplayNextAction();
 
                 Console.Write("\n원하시는 행동을 입력해주세요.\n>>");
                 inputNumber = Console.ReadLine();
@@ -57,7 +58,7 @@
 
                 if (haveItem == null)
                 {
-                    Console.WriteLine("잘못된 입력입니다");
+                    TextPrintManager.ColorWriteLine("\n잘못된 입력입니다.", ConsoleColor.DarkRed);
                 }
                 else
                 {

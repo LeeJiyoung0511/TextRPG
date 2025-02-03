@@ -34,7 +34,7 @@ namespace TextRPG
             _Level++;
             Stat.baseAttackPower += 0.5f;
             Stat.baseDefensePower += 1;
-            TextPrintManager.ColorWriteLine("\n레벨업 했습니다.",ConsoleColor.DarkMagenta);
+            TextPrintManager.ColorWriteLine("\n레벨업 했습니다.",ConsoleColor.Cyan);
             Console.WriteLine($"현재 레벨은 Lv.{_Level}입니다");
         }
     }

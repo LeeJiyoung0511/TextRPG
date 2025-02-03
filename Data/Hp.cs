@@ -2,32 +2,32 @@
 {
     internal class Hp
     {
-        public int CurrentHp => _CurrentHp;
+        public int Current => _Current;
 
-        private int _CurrentHp;
+        private int _Current;
 
         private int _MinHp = 0;
         private int _MaxHp = 100;
 
         public Hp(int hp)
         {
-            _CurrentHp = hp;
+            _Current = hp;
         }
 
         public void RecoverMaxHP()
         {
-            _CurrentHp = _MaxHp;
+            _Current = _MaxHp;
         }
 
         public void DecreaseHp(int amount)
         {
-            if (_CurrentHp - amount >= 0)
+            if (_Current - amount >= 0)
             {
-                _CurrentHp -= amount;
+                _Current -= amount;
             }
             else
             {
-                _CurrentHp = _MinHp;
+                _Current = _MinHp;
             }
         }
     }

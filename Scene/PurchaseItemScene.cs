@@ -33,7 +33,7 @@
 
             while (true)
             {
-                GameManager.DisplayScene(_nextScenes);
+                DisplayNextAction();
 
                 Console.Write("\n원하시는 행동을 입력해주세요.\n>>");
                 inputNumber = Console.ReadLine();
@@ -44,40 +44,38 @@
                     _nextScenes[number].OnStart();
                     break;
                 }
-
+               
                 purchaseItem = DataManager.ShopItemDatas[number - 1];
 
                 if (purchaseItem == null)
                 {
-                    Console.WriteLine("잘못된 입력입니다");
+                    TextPrintManager.ColorWriteLine("\n잘못된 입력입니다.", ConsoleColor.DarkRed);
                     continue;
                 }
 
                 //이미 구매한 아이템이라면
                 if (purchaseItem.IsPurchase)
                 {
-                    Console.WriteLine("이미 구매한 아이템 입니다");
-                    continue;
+                    TextPrintManager.ColorWriteLine("\n이미 구매한 아이템 입니다", ConsoleColor.DarkRed);
                 }
                 //구매가 가능하다면
                 else
                 {
                     //보유 금액이 충분하다면
-                    if (GameManager.Gold.IsDecreaseGold(purchaseItem.Price))
+                    if (GameData.Gold.IsDecreaseGold(purchaseItem.Price))
                     {
-                        Console.WriteLine("구매를 완료했습니다");
+                        TextPrintManager.ColorWriteLine("\n구매를 완료했습니다.", ConsoleColor.Cyan);
                         purchaseItem.IsPurchase = true;
-                        GameManager.Gold.DecreaseGold(purchaseItem.Price);
-                        DataManager.HaveItems.Add(purchaseItem.ItemData);
-                        continue;
+                        GameData.Gold.DecreaseGold(purchaseItem.Price);
+                        DataManager.HaveItems.Add(purchaseItem.ItemData);                
                     }
                     // 보유금액이 부족하다면
                     else
                     {
-                        Console.WriteLine("Gold가 부족합니다");
-                        continue;
+                        TextPrintManager.ColorWriteLine("\n골드가 부족합니다.", ConsoleColor.DarkRed);
                     }
                 }
+                continue;
             }
         }
     }

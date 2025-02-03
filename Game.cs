@@ -21,8 +21,8 @@ namespace TextRPG
 
         static private void Initialize()
         {
-            GameManager.Player = new Player("플레이어",Job.Warrior,10,5);
-            GameManager.Gold = new Gold(1500);
+            GameData.Player = new Player("플레이어",Job.Warrior,10,5);
+            GameData.Gold = new Gold(1500);
         }
 
         static public void Display()
@@ -32,8 +32,11 @@ namespace TextRPG
             Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다." +
                 "\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
 
-            GameManager.DisplayScene(_nextScenes);
-            GameManager.SelectScene(_nextScenes);
+            SceneBase scene = new SceneBase(0);
+            scene.NextScenes = _nextScenes;
+
+            scene.Display();
+            scene.InputNextAction();
         }
     }
 }

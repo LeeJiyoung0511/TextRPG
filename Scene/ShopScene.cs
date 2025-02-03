@@ -36,15 +36,15 @@ namespace TextRPG
                 {
                     sb.Append($"{i + 1}.");
                 }
-                Console.WriteLine($"{sb}{shopItems[i].GetShopItemInfo()}\n");
+                Console.WriteLine($"\n{sb}{shopItems[i].GetShopItemInfo()}");
             }
         }
 
         public void DisplayText()
         {
             Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다");
-            Console.WriteLine($"\n[보유골드]\n{GameManager.Gold.Current}G\n");
-            Console.WriteLine("[아이템목록]\n");
+            Console.WriteLine($"\n[보유골드]\n{GameData.Gold.Current}G\n");
+            Console.WriteLine("[아이템목록]");
         }
     }
 }

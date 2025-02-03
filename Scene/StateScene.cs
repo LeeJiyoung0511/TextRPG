@@ -17,16 +17,16 @@
         {
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
 
-            Player player = GameManager.Player;
+            Player player = GameData.Player;
 
             Console.WriteLine("---------------------------------------------");
             string levelResult = string.Format("Lv. {0:D2}", player.Level);
             Console.WriteLine(levelResult);
             Console.WriteLine($"{player.Name} ({TextPrintManager.GetDescription(player.Job)})");
-            Console.WriteLine(GetAttackPowerString(player.Stat.AttackPower, player.Stat.AddDefensePower));
+            Console.WriteLine(GetAttackPowerString(player.Stat.AttackPower, player.Stat.AddAttackPower));
             Console.WriteLine(GetDefensePowerString(player.Stat.DefensePower, player.Stat.AddDefensePower));
-            Console.WriteLine($"체력 : {player.Hp.CurrentHp}");
-            Console.WriteLine($"Gold : {GameManager.Gold.Current} G");
+            Console.WriteLine($"체력 : {player.Hp.Current}");
+            Console.WriteLine($"Gold : {GameData.Gold.Current} G");
             Console.WriteLine("---------------------------------------------");
 
             base.Display();

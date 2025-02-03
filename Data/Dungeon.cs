@@ -61,18 +61,22 @@ namespace TextRPG
             TextPrintManager.ColorWriteLine("★던전 클리어★", ConsoleColor.Green);
             Console.WriteLine($"축하합니다!!");
             Console.WriteLine($"{TextPrintManager.GetDescription(DungeonLevel)}을 클리어 하였습니다.");
-
             Console.WriteLine("\n[탐험결과]");
 
             int useHp = GetUseHp(currentDP);
-            Console.WriteLine($"\n체력 {GameManager.Player.Hp.CurrentHp} -> {GameManager.Player.Hp.CurrentHp - useHp}");
-            GameManager.Player.Hp.DecreaseHp(useHp);
+            int decreasedHp = 0;
+            if (GameData.Player.Hp.Current - useHp >= 0)
+            {
+                decreasedHp = GameData.Player.Hp.Current - useHp;
+            }
+            Console.WriteLine($"\n체력 {GameData.Player.Hp.Current} -> {decreasedHp}");
+            GameData.Player.Hp.DecreaseHp(useHp);
 
             int rewardGold = GetReceiveRewardGold(currentAP);
-            Console.WriteLine($"\nGold {GameManager.Gold.Current} -> {GameManager.Gold.Current + rewardGold}");
-            GameManager.Gold.IncreaseGold(rewardGold);
+            Console.WriteLine($"\nGold {GameData.Gold.Current} -> {GameData.Gold.Current + rewardGold}");
+            GameData.Gold.IncreaseGold(rewardGold);
 
-            GameManager.Player.LevelUp();
+            GameData.Player.LevelUp();
         }
 
         private int GetUseHp(float currentDP)
@@ -97,15 +101,15 @@ namespace TextRPG
 
         private void Failure()
         {
-            TextPrintManager.ColorWriteLine("던전 실패",ConsoleColor.DarkRed);
+            TextPrintManager.ColorWriteLine("던전 실패", ConsoleColor.DarkRed);
             Console.WriteLine($"체력이 반으로 감소합니다");
             Console.WriteLine("\n[탐험결과]");
 
-            int currentHp = GameManager.Player.Hp.CurrentHp;
+            int currentHp = GameData.Player.Hp.Current;
             int decreaseHp = (int)(currentHp * 0.5f);
 
             Console.WriteLine($"\n체력 {currentHp} -> {decreaseHp}");
-            GameManager.Player.Hp.DecreaseHp(decreaseHp);
+            GameData.Player.Hp.DecreaseHp(decreaseHp);
         }
     }
 }

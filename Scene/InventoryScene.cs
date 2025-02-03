@@ -25,7 +25,7 @@ namespace TextRPG
 
         public void DisPlayHaveItems(bool isEquipScene = false)
         {
-            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n\n[아이템목록]\n");
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n\n[아이템목록]");
 
             for (int i = 0; i < DataManager.HaveItems.Count; i++)
             {

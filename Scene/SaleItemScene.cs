@@ -45,7 +45,7 @@
 
             while (true)
             {
-                GameManager.DisplayScene(_nextScenes);
+                DisplayNextAction();
 
                 Console.Write("\n원하시는 행동을 입력해주세요.\n>>");
                 inputNumber = Console.ReadLine();
@@ -61,7 +61,7 @@
 
                 if (saleItem == null)
                 {
-                    Console.WriteLine("잘못된 입력입니다");
+                    TextPrintManager.ColorWriteLine("\n잘못된 입력입니다.", ConsoleColor.DarkRed);
                 }
                 else
                 {
@@ -69,13 +69,9 @@
                     {
                         saleItem.IsEquipped = false;
                     }
-                    else
-                    {
-                        DataManager.HaveItems.Remove(saleItem);
-                    }
-
-                    Console.WriteLine($"{saleItem.Name}이 판매되었습니다.");
-                    GameManager.Gold.IncreaseGold(DataManager.GetShopItem(saleItem).SalePrice);
+                    DataManager.HaveItems.Remove(saleItem);
+                    TextPrintManager.ColorWriteLine($"{saleItem.Name}이 판매되었습니다.",ConsoleColor.Cyan);
+                    GameData.Gold.IncreaseGold(DataManager.GetShopItem(saleItem).SalePrice);
                 }
                 continue;
             }
