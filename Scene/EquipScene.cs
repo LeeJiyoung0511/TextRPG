@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TextRPG.Scene
+﻿namespace TextRPG.Scene
 {
     internal class EquipScene : InventoryScene
     {
@@ -24,7 +22,6 @@ namespace TextRPG.Scene
         {
             SetOrderNumber();
             DisPlayHaveItems(true);
-            ExecuteEquip();
         }
 
         private void SetOrderNumber()
@@ -35,7 +32,7 @@ namespace TextRPG.Scene
             }
         }
 
-        private void ExecuteEquip()
+        public override void InputNextAction()
         {
             string inputNumber = "";
             int number = 0;

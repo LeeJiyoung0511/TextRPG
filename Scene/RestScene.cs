@@ -20,10 +20,9 @@ namespace TextRPG
         public override void Display()
         {
             Console.WriteLine($"500G를 내면 체력을 회복할 수 있습니다. (보유골드 : {GameManager.State.Gold.CurrentGold}G)\n");
-            InputNextAction();
         }
 
-        private void InputNextAction()
+        public override void InputNextAction()
         {
             Console.WriteLine("1. 휴식하기(。-ω-)zzz\n");
             Console.WriteLine("0. 나가기\n");

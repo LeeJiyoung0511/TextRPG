@@ -97,5 +97,10 @@
         static public List<Item> HaveItems = new List<Item>();
 
         static public Dictionary<ItemType,Item> EquippedItems = new Dictionary<ItemType, Item>();
+
+        static public ShopItem GetShopItem(Item item)
+        {
+            return ShopItemDatas.FirstOrDefault(x => x.ItemData == item);
+        }
     }
 }

@@ -26,11 +26,16 @@
             }
             Console.WriteLine(sceneName);
             Display();
+            InputNextAction();
         }
 
         public virtual void Display()
         {
             GameManager.DisplayScene(NextScenes);
+        }
+
+        public virtual void InputNextAction()
+        {
             GameManager.SelectScene(NextScenes);
         }
     }

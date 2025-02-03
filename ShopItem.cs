@@ -7,6 +7,7 @@ namespace TextRPG
         public Item ItemData;
         public long Price;
         public bool IsPurchase;
+        public long SalePrice => (long)(Price * 0.85f);
 
         public string GetShopItemInfo()
         {

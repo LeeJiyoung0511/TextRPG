@@ -27,8 +27,8 @@ namespace TextRPG
             Console.WriteLine($"{state.Name} ({GetDescription(state.Job)})");
             Console.WriteLine(GetAttackPowerString(state.AttackPower,state.AddAttackPower));
             Console.WriteLine(GetDefensePowerString(state.DefensePower,state.AddDefensePower));
-            Console.WriteLine($"체력 : {state.Hp}");
-            Console.WriteLine($"Gold : {state.Gold} G");
+            Console.WriteLine($"체력 : {state.Hp.CurrentHp}");
+            Console.WriteLine($"Gold : {state.Gold.CurrentGold} G");
 
             base.Display();
         }

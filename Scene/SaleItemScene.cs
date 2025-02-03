@@ -1,15 +1,15 @@
 ﻿namespace TextRPG
 {
-    internal class PurchaseItemScene : ShopScene
+    internal class SaleItemScene : ShopScene
     {
         static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
         {
             {0,new ReturnScene(0) },
         };
 
-        public PurchaseItemScene(int number) : base(number)
+        public SaleItemScene(int number) : base(number)
         {
-            SceneName = "아이템구매";
+            SceneName = "아이템판매";
             NextScenes = _nextScenes;
         }
 
@@ -21,7 +21,19 @@
 
         public override void Display()
         {
-            DisplayShopItem(true);
+            DisplayText();
+            DisplayItem();
+        }
+
+        private void DisplayItem()
+        {
+            for (int i = 0; i < DataManager.HaveItems.Count; i++)
+            {
+                Item item = DataManager.HaveItems[i];
+                item.OrderNumber = i + 1;
+                Console.WriteLine($"- {i + 1}.{item.GetItemInfo()} | {DataManager.GetShopItem(item).SalePrice} G \n");
+            }
+
         }
 
         public override void InputNextAction()
@@ -29,7 +41,7 @@
             string inputNumber = "";
             int number = 0;
 
-            ShopItem purchaseItem = new ShopItem();
+            Item saleItem = new Item();
 
             while (true)
             {
@@ -45,40 +57,29 @@
                     break;
                 }
 
-                purchaseItem = DataManager.ShopItemDatas[number - 1];
+                saleItem = DataManager.HaveItems.FirstOrDefault(x => x.OrderNumber == number);
 
-                if (purchaseItem == null)
+                if (saleItem == null)
                 {
                     Console.WriteLine("잘못된 입력입니다");
-                    continue;
                 }
-
-                //이미 구매한 아이템이라면
-                if (purchaseItem.IsPurchase)
-                {
-                    Console.WriteLine("이미 구매한 아이템 입니다");
-                    continue;
-                }
-                //구매가 가능하다면
                 else
                 {
-                    //보유 금액이 충분하다면
-                    if (GameManager.State.Gold.IsDecreaseGold(purchaseItem.Price))
+                    if (saleItem.IsEquipped)
                     {
-                        Console.WriteLine("구매를 완료했습니다");
-                        purchaseItem.IsPurchase = true;
-                        GameManager.State.Gold.DecreaseGold(purchaseItem.Price);
-                        DataManager.HaveItems.Add(purchaseItem.ItemData);
-                        continue;
+                        saleItem.IsEquipped = false;
                     }
-                    // 보유금액이 부족하다면
                     else
                     {
-                        Console.WriteLine("Gold가 부족합니다");
-                        continue;
+                        DataManager.HaveItems.Remove(saleItem);
                     }
+
+                    Console.WriteLine($"{saleItem.Name}이 판매되었습니다.");
+                    GameManager.State.Gold.InCreaseGold(DataManager.GetShopItem(saleItem).SalePrice);
                 }
+                continue;
             }
+
         }
     }
 }
