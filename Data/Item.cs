@@ -12,8 +12,8 @@ namespace TextRPG
     {
         public string Name;
         public string Description;
-        public int AttackPower;
-        public int DefensePower;
+        public float AttackPower;
+        public float DefensePower;
 
         public bool IsEquipped
         {
@@ -68,15 +68,15 @@ namespace TextRPG
             if(IsEquipped)
             {
                 DataManager.EquippedItems.Add(ItemType, this);
-                GameManager.State.AddAttackPower += AttackPower;
-                GameManager.State.AddDefensePower += DefensePower;
+                GameManager.Player.Stat.AddAttackPower += AttackPower;
+                GameManager.Player.Stat.AddDefensePower += DefensePower;
                 Console.WriteLine($"{Name}을 장착했습니다\n");
             }
             else
             {
                 DataManager.EquippedItems.Remove(ItemType);
-                GameManager.State.AddAttackPower -= AttackPower;
-                GameManager.State.AddDefensePower -= DefensePower;
+                GameManager.Player.Stat.AddAttackPower -= AttackPower;
+                GameManager.Player.Stat.AddDefensePower -= DefensePower;
                 Console.WriteLine($"{Name}을 장착해제했습니다\n");
             }
         }

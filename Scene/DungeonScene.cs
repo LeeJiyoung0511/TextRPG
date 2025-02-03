@@ -57,8 +57,8 @@
                 }
                 else
                 {
-                    int currentAP = GameManager.State.AttackPower;
-                    int currentDP = GameManager.State.DefensePower;
+                    float currentAP = GameManager.Player.Stat.AttackPower;
+                    float currentDP = GameManager.Player.Stat.DefensePower;
                     selectedDungeon.EntryDungeon(currentDP,currentAP);
                 }
                 continue;

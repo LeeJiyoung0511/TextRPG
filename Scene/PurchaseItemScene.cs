@@ -63,11 +63,11 @@
                 else
                 {
                     //보유 금액이 충분하다면
-                    if (GameManager.State.Gold.IsDecreaseGold(purchaseItem.Price))
+                    if (GameManager.Gold.IsDecreaseGold(purchaseItem.Price))
                     {
                         Console.WriteLine("구매를 완료했습니다");
                         purchaseItem.IsPurchase = true;
-                        GameManager.State.Gold.DecreaseGold(purchaseItem.Price);
+                        GameManager.Gold.DecreaseGold(purchaseItem.Price);
                         DataManager.HaveItems.Add(purchaseItem.ItemData);
                         continue;
                     }

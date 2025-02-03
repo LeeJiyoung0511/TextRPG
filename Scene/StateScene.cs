@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Reflection;
-
-namespace TextRPG
+﻿namespace TextRPG
 {
     internal class StateScene : SceneBase
     {
@@ -20,16 +17,16 @@ namespace TextRPG
         {
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
 
-            State state = GameManager.State;
+            Player player = GameManager.Player;
 
             Console.WriteLine("---------------------------------------------");
-            string levelResult = string.Format("Lv. {0:D2}", state.Level);
+            string levelResult = string.Format("Lv. {0:D2}", player.Level);
             Console.WriteLine(levelResult);
-            Console.WriteLine($"{state.Name} ({TextPrintManager.GetDescription(state.Job)})");
-            Console.WriteLine(GetAttackPowerString(state.AttackPower,state.AddAttackPower));
-            Console.WriteLine(GetDefensePowerString(state.DefensePower,state.AddDefensePower));
-            Console.WriteLine($"체력 : {state.Hp.CurrentHp}");
-            Console.WriteLine($"Gold : {state.Gold.CurrentGold} G");
+            Console.WriteLine($"{player.Name} ({TextPrintManager.GetDescription(player.Job)})");
+            Console.WriteLine(GetAttackPowerString(player.Stat.AttackPower, player.Stat.AddDefensePower));
+            Console.WriteLine(GetDefensePowerString(player.Stat.DefensePower, player.Stat.AddDefensePower));
+            Console.WriteLine($"체력 : {player.Hp.CurrentHp}");
+            Console.WriteLine($"Gold : {GameManager.Gold.Current} G");
             Console.WriteLine("---------------------------------------------");
 
             base.Display();

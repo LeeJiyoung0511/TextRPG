@@ -19,7 +19,7 @@ namespace TextRPG
 
         public override void Display()
         {
-            Console.WriteLine($"500G를 내면 체력을 회복할 수 있습니다. (보유골드 : {GameManager.State.Gold.CurrentGold}G)\n");
+            Console.WriteLine($"{_RestPrice}G를 내면 체력을 회복할 수 있습니다. (보유골드 : {GameManager.Gold.Current}G)\n");
         }
 
         public override void InputNextAction()
@@ -35,12 +35,12 @@ namespace TextRPG
 
                 if (actionNumber == 1)
                 {
-                    if (GameManager.State.Gold.IsDecreaseGold(_RestPrice))
+                    if (GameManager.Gold.IsDecreaseGold(_RestPrice))
                     {
-                        GameManager.State.Gold.DecreaseGold(_RestPrice);
+                        GameManager.Gold.DecreaseGold(_RestPrice);
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine("휴식을 완료했습니다");
-                        GameManager.State.Hp.RecoverMaxHP();
+                        GameManager.Player.Hp.RecoverMaxHP();
                         Console.ResetColor();
                     }
                     else

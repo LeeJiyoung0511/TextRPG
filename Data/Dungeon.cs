@@ -35,7 +35,7 @@ namespace TextRPG
             return $"{TextPrintManager.GetDescription(DungeonLevel)}\t| 방어력 {RecommendDP} 이상 권장";
         }
 
-        public void EntryDungeon(int currentDP, int currentAP)
+        public void EntryDungeon(float currentDP, float currentAP)
         {
             if (currentDP < RecommendDP)
             {
@@ -56,7 +56,7 @@ namespace TextRPG
             }
         }
 
-        private void Clear(int currentDP, int currentAP)
+        private void Clear(float currentDP, float currentAP)
         {
             TextPrintManager.ColorWriteLine("★던전 클리어★", ConsoleColor.Green);
             Console.WriteLine($"축하합니다!!");
@@ -65,17 +65,19 @@ namespace TextRPG
             Console.WriteLine("\n[탐험결과]");
 
             int useHp = GetUseHp(currentDP);
-            Console.WriteLine($"\n체력 {GameManager.State.Hp.CurrentHp} -> {GameManager.State.Hp.CurrentHp - useHp}");
-            GameManager.State.Hp.DecreaseHp(useHp);
+            Console.WriteLine($"\n체력 {GameManager.Player.Hp.CurrentHp} -> {GameManager.Player.Hp.CurrentHp - useHp}");
+            GameManager.Player.Hp.DecreaseHp(useHp);
 
             int rewardGold = GetReceiveRewardGold(currentAP);
-            Console.WriteLine($"\nGold {GameManager.State.Gold.CurrentGold} -> {GameManager.State.Gold.CurrentGold + rewardGold}");
-            GameManager.State.Gold.IncreaseGold(rewardGold);
+            Console.WriteLine($"\nGold {GameManager.Gold.Current} -> {GameManager.Gold.Current + rewardGold}");
+            GameManager.Gold.IncreaseGold(rewardGold);
+
+            GameManager.Player.LevelUp();
         }
 
-        private int GetUseHp(int currentDP)
+        private int GetUseHp(float currentDP)
         {
-            int addRangeAmount = RecommendDP - currentDP;
+            int addRangeAmount = (int)(RecommendDP - currentDP);
 
             int useMinHp = _BaseUseMinHp + addRangeAmount;
             int useMaxHp = _BaseUseMaxHp + addRangeAmount;
@@ -83,10 +85,10 @@ namespace TextRPG
             return new Random().Next(useMinHp, useMaxHp + 1);
         }
 
-        private int GetReceiveRewardGold(int currentAP)
+        private int GetReceiveRewardGold(float currentAP)
         {
-            int addRewardMinVaule = currentAP;
-            int addRewardMaxVaule = currentAP * 2;
+            int addRewardMinVaule = (int)currentAP;
+            int addRewardMaxVaule = (int)currentAP * 2;
 
             float addRewardRate = new Random().Next(addRewardMinVaule, addRewardMaxVaule + 1) * 0.01f;
 
@@ -99,11 +101,11 @@ namespace TextRPG
             Console.WriteLine($"체력이 반으로 감소합니다");
             Console.WriteLine("\n[탐험결과]");
 
-            int currentHp = GameManager.State.Hp.CurrentHp;
+            int currentHp = GameManager.Player.Hp.CurrentHp;
             int decreaseHp = (int)(currentHp * 0.5f);
 
             Console.WriteLine($"\n체력 {currentHp} -> {decreaseHp}");
-            GameManager.State.Hp.DecreaseHp(decreaseHp);
+            GameManager.Player.Hp.DecreaseHp(decreaseHp);
         }
     }
 }

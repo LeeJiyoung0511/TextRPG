@@ -21,7 +21,8 @@ namespace TextRPG
 
         static private void Initialize()
         {
-            GameManager.State = new State();
+            GameManager.Player = new Player("플레이어",Job.Warrior,10,5);
+            GameManager.Gold = new Gold(1500);
         }
 
         static public void Display()

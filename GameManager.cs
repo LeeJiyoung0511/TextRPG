@@ -2,7 +2,9 @@
 {
     internal class GameManager
     {
-        static public State State { get; set; }
+        static public Player Player { get; set; }
+
+        static public Gold Gold { get; set; }
 
         //행동 표시
         static public void DisplayScene(Dictionary<int, SceneBase> dic)
@@ -27,7 +29,7 @@
 
                 if (!dic.ContainsKey(sceneNumber))
                 {
-                    TextPrintManager.ColorWriteLine("잘못된 입력입니다.\n", ConsoleColor.DarkRed);
+                    TextPrintManager.ColorWriteLine("\n잘못된 입력입니다.", ConsoleColor.DarkRed);
                     DisplayScene(dic);
                     continue;
                 }
