@@ -27,7 +27,8 @@
 
                 if (!dic.ContainsKey(sceneNumber))
                 {
-                    Console.WriteLine("잘못된 입력입니다");
+                    TextPrintManager.ColorWriteLine("잘못된 입력입니다.\n", ConsoleColor.DarkRed);
+                    DisplayScene(dic);
                     continue;
                 }
                 else

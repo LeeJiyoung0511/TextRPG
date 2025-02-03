@@ -10,7 +10,7 @@
         public override void OnStart(string sceneName)
         {
             Console.Clear();
-            Game.NextAction();
+            Game.Display();
         }
     }
 }

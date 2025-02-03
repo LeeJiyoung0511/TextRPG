@@ -22,36 +22,17 @@ namespace TextRPG
 
             State state = GameManager.State;
 
+            Console.WriteLine("---------------------------------------------");
             string levelResult = string.Format("Lv. {0:D2}", state.Level);
             Console.WriteLine(levelResult);
-            Console.WriteLine($"{state.Name} ({GetDescription(state.Job)})");
+            Console.WriteLine($"{state.Name} ({TextPrintManager.GetDescription(state.Job)})");
             Console.WriteLine(GetAttackPowerString(state.AttackPower,state.AddAttackPower));
             Console.WriteLine(GetDefensePowerString(state.DefensePower,state.AddDefensePower));
             Console.WriteLine($"체력 : {state.Hp.CurrentHp}");
             Console.WriteLine($"Gold : {state.Gold.CurrentGold} G");
+            Console.WriteLine("---------------------------------------------");
 
             base.Display();
-        }
-
-        /// <summary>
-        /// Enum의 Description불러오기
-        /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        private string GetDescription(Enum e)
-        {
-            FieldInfo field = e.GetType().GetField(e.ToString());
-
-            if (field != null)
-            {
-                var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
-                if (attribute != null)
-                {
-                    return attribute.Description;
-                }
-            }
-
-            return e.ToString();
         }
 
         /// <summary>

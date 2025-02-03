@@ -68,7 +68,6 @@
                         {
                             haveItem.IsEquipped = true;
                         }
-
                     }
                     else
                     {

@@ -12,8 +12,9 @@ namespace TextRPG
     {
         public string Name;
         public string Description;
-        public float AttackPower;
-        public float DefensePower;
+        public int AttackPower;
+        public int DefensePower;
+
         public bool IsEquipped
         {
             get => isEquipped;
@@ -32,8 +33,8 @@ namespace TextRPG
         {
             Name = "";
             Description = "";
-            AttackPower = 0f;
-            DefensePower = 0f;
+            AttackPower = 0;
+            DefensePower = 0;
             OrderNumber = 0;
         }
 

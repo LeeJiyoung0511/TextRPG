@@ -102,5 +102,12 @@
         {
             return ShopItemDatas.FirstOrDefault(x => x.ItemData == item);
         }
+
+        static public Dungeon[] DungeonDatas = new Dungeon[]
+        {
+            new Dungeon(5,DungeonLevel.Easy,1000),
+            new Dungeon(11,DungeonLevel.Normal,1700),
+            new Dungeon(17,DungeonLevel.Hard,2500),
+        };
     }
 }

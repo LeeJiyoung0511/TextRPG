@@ -13,12 +13,12 @@ namespace TextRPG
         public int Level;
         public string Name;
         public Job Job;
-        public float AttackPower => baseAttackPower + AddAttackPower;
-        public float baseAttackPower;
-        public float AddAttackPower;
-        public float DefensePower => baseDefensePower + AddDefensePower;
-        public float baseDefensePower;
-        public float AddDefensePower;
+        public int AttackPower => baseAttackPower + AddAttackPower;
+        public int baseAttackPower;
+        public int AddAttackPower;
+        public int DefensePower => baseDefensePower + AddDefensePower;
+        public int baseDefensePower;
+        public int AddDefensePower;
 
         public Hp Hp;
 

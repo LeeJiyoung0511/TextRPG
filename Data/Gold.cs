@@ -15,16 +15,14 @@
             if (IsDecreaseGold(amount))
             {
                 _CurrentGold -= amount;
-                Console.WriteLine($"보유 골드는 {_CurrentGold}G 입니다\n");
             }
         }
 
-        public void InCreaseGold(long amount)
+        public void IncreaseGold(long amount)
         {
             if (amount > 0)
             {
                 _CurrentGold += amount;
-                Console.WriteLine($"보유 골드는 {_CurrentGold}G 입니다\n");
             }
         }
 

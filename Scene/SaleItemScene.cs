@@ -75,7 +75,7 @@
                     }
 
                     Console.WriteLine($"{saleItem.Name}이 판매되었습니다.");
-                    GameManager.State.Gold.InCreaseGold(DataManager.GetShopItem(saleItem).SalePrice);
+                    GameManager.State.Gold.IncreaseGold(DataManager.GetShopItem(saleItem).SalePrice);
                 }
                 continue;
             }

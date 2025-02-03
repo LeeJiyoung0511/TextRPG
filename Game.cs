@@ -9,25 +9,28 @@ namespace TextRPG
             {1,new StateScene(1) },
             {2,new InventoryScene(2) },
             {3,new ShopScene(3) },
+            {4,new DungeonScene(4) },
             {5,new RestScene(5) }
         };
 
         static void Main(string[] args)
         {
             Initialize();
-            NextAction();
+            Display();
         }
 
         static private void Initialize()
         {
             GameManager.State = new State();
-
-            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다." +
-                "\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\n");
         }
 
-        static public void NextAction()
+        static public void Display()
         {
+            TextPrintManager.ColorWriteLine("【마을】", ConsoleColor.DarkYellow);
+
+            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다." +
+                "\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
+
             GameManager.DisplayScene(_nextScenes);
             GameManager.SelectScene(_nextScenes);
         }

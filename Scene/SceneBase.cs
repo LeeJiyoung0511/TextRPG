@@ -24,7 +24,8 @@
             {
                 sceneName = SceneName;
             }
-            Console.WriteLine(sceneName);
+
+            TextPrintManager.ColorWriteLine($"\n【{sceneName}】",ConsoleColor.DarkYellow);
             Display();
             InputNextAction();
         }
