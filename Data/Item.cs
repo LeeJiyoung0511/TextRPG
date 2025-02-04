@@ -65,14 +65,14 @@ namespace TextRPG
                 DataManager.Instance.EquippedItems.Add(ItemType, this);
                 GameData.Player.Stat.AddAttackPower += AttackPower;
                 GameData.Player.Stat.AddDefensePower += DefensePower;
-                TextPrintManager.ColorWriteLine($"\n{Name}을 장착했습니다.", ConsoleColor.Cyan);
+                TextPrintManager.ColorWriteLine($"\n{Name}을(를) 장착했습니다.", ConsoleColor.Cyan);
             }
             else
             {
                 DataManager.Instance.EquippedItems.Remove(ItemType);
                 GameData.Player.Stat.AddAttackPower -= AttackPower;
                 GameData.Player.Stat.AddDefensePower -= DefensePower;
-                TextPrintManager.ColorWriteLine($"\n{Name}을 장착해제했습니다.", ConsoleColor.Cyan);
+                TextPrintManager.ColorWriteLine($"\n{Name}을(를) 장착해제했습니다.", ConsoleColor.Cyan);
             }
         }
     }

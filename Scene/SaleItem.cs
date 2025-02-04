@@ -1,22 +1,22 @@
 ﻿namespace TextRPG
 {
-    internal class SaleItemScene : ShopScene
+    internal class SaleItem : Shop
     {
-        static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
+        static readonly Dictionary<int, ActionBase> _nextActions = new Dictionary<int, ActionBase>
         {
-            {0,new ReturnScene(0) },
+            {0,new Return(0) },
         };
 
-        public SaleItemScene(int number) : base(number)
+        public SaleItem(int number) : base(number)
         {
-            SceneName = "아이템판매";
-            NextScenes = _nextScenes;
-            OnInputInvalidActionNumber = SaleItem;
+            ActionName = "아이템판매";
+            NextActions = _nextActions;
+            OnInputInvalidActionNumber = TrySaleItem;
         }
 
         public override void OnStart(string sceneName = "")
         {
-            sceneName = $"상점 - {SceneName}";
+            sceneName = $"상점 - {ActionName}";
             base.OnStart(sceneName);
         }
 
@@ -35,7 +35,7 @@
             }
         }
 
-        private void SaleItem(int number)
+        private void TrySaleItem(int number)
         {
             ShopItem saleItem = DataManager.Instance.ShopItemDatas[number];
 
@@ -51,7 +51,7 @@
                     saleItem.ItemData.IsEquipped = false;
                 }
                 DataManager.Instance.HaveItems.Remove(saleItem.ItemData);
-                TextPrintManager.ColorWriteLine($"{saleItem.ItemData.Name}이 판매되었습니다.", ConsoleColor.Cyan);
+                TextPrintManager.ColorWriteLine($"{saleItem.ItemData.Name}이(가) 판매되었습니다.", ConsoleColor.Cyan);
                 GameData.Gold.IncreaseGold(saleItem.SalePrice);
             }
         }

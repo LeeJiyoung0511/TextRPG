@@ -1,16 +1,16 @@
 ﻿namespace TextRPG
 {
-    internal class DungeonScene : SceneBase
+    internal class Dungeon : ActionBase
     {
-        static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
+        static readonly Dictionary<int, ActionBase> _nextActions = new Dictionary<int, ActionBase>
         {
-            {0,new ReturnScene(0) },
+            {0,new Return(0) },
         };
 
-        public DungeonScene(int number) : base(number)
+        public Dungeon(int number) : base(number)
         {
-            SceneName = "던전입장";
-            NextScenes = _nextScenes;
+            ActionName = "던전입장";
+            NextActions = _nextActions;
             OnInputInvalidActionNumber = EntryDungeon;
         }
 
@@ -24,7 +24,7 @@
         {
             for (int i = 0; i < DataManager.Instance.DungeonDatas.Count; i++)
             {
-                Dungeon dungeon = DataManager.Instance.DungeonDatas[i + 1];
+                DungeonData dungeon = DataManager.Instance.DungeonDatas[i + 1];
                 Console.WriteLine($"\n{i + 1}.{dungeon.GetDungeonInfo()}");
             }
         }
@@ -37,7 +37,7 @@
                 return;
             }
 
-            Dungeon selectedDungeon = DataManager.Instance.DungeonDatas[number];
+            DungeonData selectedDungeon = DataManager.Instance.DungeonDatas[number];
             if (selectedDungeon == null)
             {
                 TextPrintManager.ColorWriteLine("잘못된 입력입니다", ConsoleColor.DarkRed);

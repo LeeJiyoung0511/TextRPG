@@ -12,7 +12,7 @@ namespace TextRPG
         Hard,
     }
 
-    internal class Dungeon
+    internal class DungeonData
     {
         public int RecommendDP;
         public DungeonLevel DungeonLevel;
@@ -22,7 +22,7 @@ namespace TextRPG
         private int _BaseUseMaxHp = 35;
         private int _FailurePer = 40;
 
-        public Dungeon(int dp, DungeonLevel level, long gold)
+        public DungeonData(int dp, DungeonLevel level, long gold)
         {
             RecommendDP = dp;
             DungeonLevel = level;

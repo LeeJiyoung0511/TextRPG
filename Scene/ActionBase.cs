@@ -1,32 +1,32 @@
 ﻿namespace TextRPG
 {
-    internal class SceneBase
+    internal class ActionBase
     {
 
-        public Dictionary<int, SceneBase> NextScenes = new Dictionary<int, SceneBase>();
+        public Dictionary<int, ActionBase> NextActions = new Dictionary<int, ActionBase>();
 
-        public int SceneNumber;
-        public string SceneName;
+        public int ActionNumber;
+        public string ActionName;
 
         public Action<int> OnInputInvalidActionNumber = delegate { };
 
-        public SceneBase(int actionNumber)
+        public ActionBase(int actionNumber)
         {
-            SceneNumber = actionNumber;
-            SceneName = "";
+            ActionNumber = actionNumber;
+            ActionName = "";
             OnInputInvalidActionNumber = PrintErrorMessage;
         }
 
         public void PrintInfo()
         {
-            Console.WriteLine($"\n{SceneNumber}. {SceneName}");
+            Console.WriteLine($"\n{ActionNumber}. {ActionName}");
         }
 
         public virtual void OnStart(string sceneName = "")
         {
             if (String.IsNullOrEmpty(sceneName))
             {
-                sceneName = SceneName;
+                sceneName = ActionName;
             }
 
             TextPrintManager.ColorWriteLine($"\n【{sceneName}】", ConsoleColor.DarkYellow);
@@ -42,7 +42,7 @@
 
         public void DisplayNextAction()
         {
-            foreach (var action in NextScenes)
+            foreach (var action in NextActions)
             {
                 action.Value.PrintInfo();
             }
@@ -58,9 +58,9 @@
 
                 if (int.TryParse(Console.ReadLine(), out int sceneNumber))
                 {
-                    if (NextScenes.ContainsKey(sceneNumber))
+                    if (NextActions.ContainsKey(sceneNumber))
                     {
-                        NextScenes[sceneNumber].OnStart();
+                        NextActions[sceneNumber].OnStart();
                         break;
                     }
                     OnInputInvalidActionNumber?.Invoke(sceneNumber);

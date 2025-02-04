@@ -2,19 +2,19 @@
 
 namespace TextRPG
 {
-    internal class ShopScene : SceneBase
+    internal class Shop : ActionBase
     {
-        static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
+        static readonly Dictionary<int, ActionBase> _nextActions = new Dictionary<int, ActionBase>
         {
-            {1,new PurchaseItemScene(1) },
-            {2,new SaleItemScene(2) },
-            {0,new ReturnScene(0) },
+            {1,new PurchaseItem(1) },
+            {2,new SaleItem(2) },
+            {0,new Return(0) },
         };
 
-        public ShopScene(int number) : base(number)
+        public Shop(int number) : base(number)
         {
-            SceneName = "상점";
-            NextScenes = _nextScenes;
+            ActionName = "상점";
+            NextActions = _nextActions;
         }
 
         public override void Display()

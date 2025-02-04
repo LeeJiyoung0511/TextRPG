@@ -1,16 +1,16 @@
 ﻿namespace TextRPG
 {
-    internal class StateScene : SceneBase
+    internal class State : ActionBase
     {
-        static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
+        static readonly Dictionary<int, ActionBase> _nextActions = new Dictionary<int, ActionBase>
         {
-            {0,new ReturnScene(0) },
+            {0,new Return(0) },
         };
 
-        public StateScene(int number) : base(number)
+        public State(int number) : base(number)
         {
-            SceneName = "상태보기";
-            NextScenes = _nextScenes;
+            ActionName = "상태보기";
+            NextActions = _nextActions;
         }
 
         public override void Display()

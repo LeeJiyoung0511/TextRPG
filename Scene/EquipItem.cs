@@ -1,22 +1,22 @@
-﻿namespace TextRPG.Scene
+﻿namespace TextRPG
 {
-    internal class EquipScene : InventoryScene
+    internal class EquipItem : Inventory
     {
-        static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
+        static readonly Dictionary<int, ActionBase> _nextActions = new Dictionary<int, ActionBase>
         {
-            {0,new ReturnScene(0) },
+            {0,new Return(0) },
         };
 
-        public EquipScene(int number) : base(number)
+        public EquipItem(int number) : base(number)
         {
-            SceneName = "장착관리";
-            NextScenes = _nextScenes;
-            OnInputInvalidActionNumber = EquipItem;
+            ActionName = "장착관리";
+            NextActions = _nextActions;
+            OnInputInvalidActionNumber = TryEquipItem;
         }
 
         public override void OnStart(string sceneName)
         {
-            sceneName = $"인벤토리 - {SceneName}";
+            sceneName = $"인벤토리 - {ActionName}";
             base.OnStart(sceneName);
         }
 
@@ -25,7 +25,7 @@
             DisPlayHaveItems(true);
         }
 
-        private void EquipItem(int number)
+        private void TryEquipItem(int number)
         {
             Item haveItem = DataManager.Instance.ItemDatas[number];
 

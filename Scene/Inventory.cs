@@ -1,20 +1,19 @@
 ﻿using System.Text;
-using TextRPG.Scene;
 
 namespace TextRPG
 {
-    internal class InventoryScene : SceneBase
+    internal class Inventory : ActionBase
     {
-        static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
+        static readonly Dictionary<int, ActionBase> _nextActions = new Dictionary<int, ActionBase>
         {
-            {1,new EquipScene(1) },
-            {2,new ReturnScene(2) },
+            {1,new EquipItem(1) },
+            {2,new Return(2) },
         };
 
-        public InventoryScene(int number) : base(number)
+        public Inventory(int number) : base(number)
         {
-            SceneName = "인벤토리";
-            NextScenes = _nextScenes;
+            ActionName = "인벤토리";
+            NextActions = _nextActions;
         }
 
         public override void Display()

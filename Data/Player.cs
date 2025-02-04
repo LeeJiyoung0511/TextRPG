@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
-using System.Reflection.Emit;
 
 namespace TextRPG
 {

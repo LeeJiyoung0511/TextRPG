@@ -2,13 +2,13 @@
 {
     internal class Game
     {
-        static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
+        static readonly Dictionary<int, ActionBase> _nextScenes = new Dictionary<int, ActionBase>
         {
-            {1,new StateScene(1) },
-            {2,new InventoryScene(2) },
-            {3,new ShopScene(3) },
-            {4,new DungeonScene(4) },
-            {5,new RestScene(5) }
+            {1,new State(1) },
+            {2,new Inventory(2) },
+            {3,new Shop(3) },
+            {4,new Dungeon(4) },
+            {5,new Rest(5) }
         };
 
         static void Main(string[] args)
@@ -42,8 +42,8 @@
             Console.WriteLine($"스파르타 마을에 오신 {DataManager.Instance.Player.Name}님 환영합니다." +
             "\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
 
-            SceneBase scene = new SceneBase(0);
-            scene.NextScenes = _nextScenes;
+            ActionBase scene = new ActionBase(0);
+            scene.NextActions = _nextScenes;
             scene.InputNextAction();
         }
     }

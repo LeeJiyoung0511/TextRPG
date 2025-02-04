@@ -100,11 +100,11 @@ namespace TextRPG
         public Dictionary<ItemType, Item> EquippedItems = new Dictionary<ItemType, Item>();
 
         [JsonIgnore]
-        public Dictionary<long, Dungeon> DungeonDatas = new()
+        public Dictionary<long, DungeonData> DungeonDatas = new()
         {
-            { 1, new Dungeon(5,  DungeonLevel.Easy, 1000) },
-            { 2, new Dungeon(11, DungeonLevel.Normal,1700) },
-            { 3, new Dungeon(17, DungeonLevel.Hard, 2500) },
+            { 1, new DungeonData(5,  DungeonLevel.Easy, 1000) },
+            { 2, new DungeonData(11, DungeonLevel.Normal,1700) },
+            { 3, new DungeonData(17, DungeonLevel.Hard, 2500) },
         };
 
         public void Initialize()

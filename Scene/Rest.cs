@@ -1,21 +1,19 @@
-﻿using TextRPG.Scene;
-
-namespace TextRPG
+﻿namespace TextRPG
 {
-    internal class RestScene : SceneBase
+    internal class Rest : ActionBase
     {
-        static readonly Dictionary<int, SceneBase> _nextScenes = new Dictionary<int, SceneBase>
+        static readonly Dictionary<int, ActionBase> _nextActions = new Dictionary<int, ActionBase>
         {
-            {0,new ReturnScene(0) },
+            {0,new Return(0) },
         };
 
         private long _RestPrice = 500;
 
-        public RestScene(int number) : base(number)
+        public Rest(int number) : base(number)
         {
-            SceneName = "휴식하기";
-            NextScenes = _nextScenes;
-            OnInputInvalidActionNumber = Rest;
+            ActionName = "휴식하기";
+            NextActions = _nextActions;
+            OnInputInvalidActionNumber = TryRest;
         }
 
         public override void Display()
@@ -24,7 +22,7 @@ namespace TextRPG
             Console.WriteLine("1. 휴식하기(。-ω-)zzz");
         }
 
-        private void Rest(int number)
+        private void TryRest(int number)
         {
             if (number == 1)
             {
