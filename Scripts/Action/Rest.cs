@@ -16,7 +16,7 @@
             OnInputInvalidActionNumber = TryRest;
         }
 
-        public override void Display()
+        protected override void Display()
         {
             Console.WriteLine($"{_RestPrice}G를 내면 체력을 회복할 수 있습니다. (보유골드 : {GameData.Gold.Current}G)\n");
             Console.WriteLine("1. 휴식하기(。-ω-)zzz");

@@ -14,13 +14,13 @@
             OnInputInvalidActionNumber = TrySaleItem;
         }
 
-        public override void OnStart(string sceneName = "")
+        protected override void OnStart(string sceneName = "")
         {
             sceneName = $"상점 - {ActionName}";
             base.OnStart(sceneName);
         }
 
-        public override void Display()
+        protected override void Display()
         {
             DisplayText();
             DisplayItem();

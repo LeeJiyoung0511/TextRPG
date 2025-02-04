@@ -14,13 +14,13 @@
             OnInputInvalidActionNumber = TryEquipItem;
         }
 
-        public override void OnStart(string sceneName)
+        protected override void OnStart(string sceneName)
         {
             sceneName = $"인벤토리 - {ActionName}";
             base.OnStart(sceneName);
         }
 
-        public override void Display()
+        protected override void Display()
         {
             DisPlayHaveItems(true);
         }

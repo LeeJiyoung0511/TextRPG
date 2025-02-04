@@ -16,7 +16,7 @@ namespace TextRPG
             NextActions = _nextActions;
         }
 
-        public override void Display()
+        protected override void Display()
         {
             DisPlayHaveItems();
         }

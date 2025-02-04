@@ -7,7 +7,7 @@
             ActionName = "나가기";
         }
 
-        public override void OnStart(string sceneName)
+        protected override void OnStart(string sceneName)
         {
             Console.Clear();
             Game.DisplayVillageMessage();

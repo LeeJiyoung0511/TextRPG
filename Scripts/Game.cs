@@ -19,7 +19,13 @@
             //데이터 로드
             DataManager.Instance.Load();
 
-            InputPlayerName();
+            //BGM재생
+            SoundManager.PlayBGM();
+
+            if(!DataManager.Instance.IsExistSaveData)
+            {
+                InputPlayerName();
+            }
             DisplayVillageMessage();
         }
 
@@ -31,7 +37,7 @@
         static public void InputPlayerName()
         {
             Console.WriteLine($"안녕하세요!!");
-            Console.WriteLine($"용사님의 이름을 알려주세요");
+            Console.WriteLine($"용사님의 이름을 알려주세요.");
             string name = Console.ReadLine();
             DataManager.Instance.Player.Name = name;
         }

@@ -16,12 +16,14 @@ namespace TextRPG
             }
         }
 
-        static public DataManager? _Instance = null;
+        static private DataManager? _Instance = null;
 
-        private string _Path = "C:\\Users\\81804\\Desktop\\Study\\TextRPG\\Save\\SaveData";
+        private readonly string FILENAME = "SaveData.json";
 
         public Player Player { get; set; }
         public Gold Gold { get; set; }
+
+        public bool IsExistSaveData { get; set; } = false;
 
         public Dictionary<long, Item> ItemDatas = new()
         {
@@ -116,22 +118,28 @@ namespace TextRPG
         public void Save()
         {
             string dataManager = JsonConvert.SerializeObject(Instance);
-            File.WriteAllText(_Path, dataManager);
+            File.WriteAllText(GetFilePath(), dataManager);
         }
 
         public void Load()
         {
-            if (!File.Exists(_Path))
+            if (!File.Exists(GetFilePath()))
             {
                 Instance.Initialize();
-                Save();
                 return;
             }
             else
             {
-                string dataManager = File.ReadAllText(_Path);
+                string dataManager = File.ReadAllText(FILENAME);
                 _Instance = JsonConvert.DeserializeObject<DataManager>(dataManager);
+                _Instance.IsExistSaveData = true;
             }
+        }
+
+        private string GetFilePath()
+        {
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FILENAME);
+            return path;
         }
 
     }

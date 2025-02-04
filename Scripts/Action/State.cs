@@ -13,7 +13,7 @@
             NextActions = _nextActions;
         }
 
-        public override void Display()
+        protected override void Display()
         {
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
 

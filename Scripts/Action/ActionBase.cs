@@ -2,7 +2,6 @@
 {
     internal class ActionBase
     {
-
         public Dictionary<int, ActionBase> NextActions = new Dictionary<int, ActionBase>();
 
         public int ActionNumber;
@@ -17,12 +16,12 @@
             OnInputInvalidActionNumber = PrintErrorMessage;
         }
 
-        public void PrintInfo()
+        protected void PrintInfo()
         {
             Console.WriteLine($"\n{ActionNumber}. {ActionName}");
         }
 
-        public virtual void OnStart(string sceneName = "")
+        protected virtual void OnStart(string sceneName = "")
         {
             if (String.IsNullOrEmpty(sceneName))
             {
@@ -35,12 +34,12 @@
         }
 
         //행동 표시
-        public virtual void Display()
+        protected virtual void Display()
         {
             DisplayNextAction();
         }
 
-        public void DisplayNextAction()
+        private void DisplayNextAction()
         {
             foreach (var action in NextActions)
             {

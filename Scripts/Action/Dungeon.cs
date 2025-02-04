@@ -14,7 +14,7 @@
             OnInputInvalidActionNumber = EntryDungeon;
         }
 
-        public override void Display()
+        protected override void Display()
         {
             Console.WriteLine("\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
             DisplayDungeonList();
