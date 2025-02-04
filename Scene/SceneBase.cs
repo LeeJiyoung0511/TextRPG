@@ -8,10 +8,13 @@
         public int SceneNumber;
         public string SceneName;
 
+        public Action<int> OnInputInvalidActionNumber = delegate { };
+
         public SceneBase(int actionNumber)
         {
             SceneNumber = actionNumber;
             SceneName = "";
+            OnInputInvalidActionNumber = PrintErrorMessage;
         }
 
         public void PrintInfo()
@@ -26,7 +29,7 @@
                 sceneName = SceneName;
             }
 
-            TextPrintManager.ColorWriteLine($"\n【{sceneName}】",ConsoleColor.DarkYellow);
+            TextPrintManager.ColorWriteLine($"\n【{sceneName}】", ConsoleColor.DarkYellow);
             Display();
             InputNextAction();
         }
@@ -46,29 +49,33 @@
         }
 
         //행동 선택
-        public virtual void InputNextAction()
+        public void InputNextAction()
         {
-            string inputSceneNumber = "";
-            int sceneNumber = 0;
-
             while (true)
             {
+                DisplayNextAction();
                 Console.Write("\n원하시는 행동을 입력해주세요.\n>>");
-                inputSceneNumber = Console.ReadLine();
-                sceneNumber = int.Parse(inputSceneNumber);
 
-                if (!NextScenes.ContainsKey(sceneNumber))
+                if (int.TryParse(Console.ReadLine(), out int sceneNumber))
                 {
-                    TextPrintManager.ColorWriteLine("\n잘못된 입력입니다.", ConsoleColor.DarkRed);
-                    Display();
-                    continue;
+                    if (NextScenes.ContainsKey(sceneNumber))
+                    {
+                        NextScenes[sceneNumber].OnStart();
+                        break;
+                    }
+                    OnInputInvalidActionNumber?.Invoke(sceneNumber);
                 }
                 else
                 {
-                    NextScenes[sceneNumber].OnStart();
-                    break;
+                    PrintErrorMessage(0);
                 }
+                continue;
             }
+        }
+
+        private void PrintErrorMessage(int number)
+        {
+            TextPrintManager.ColorWriteLine("\n잘못된 입력입니다.", ConsoleColor.DarkRed);
         }
     }
 }

@@ -1,21 +1,18 @@
-﻿namespace TextRPG
+﻿using Newtonsoft.Json;
+
+namespace TextRPG
 {
     internal class Gold
     {
+        [JsonIgnore]
         public long Current => _Current;
+
+        [JsonProperty]
         private long _Current = 0;
 
         public Gold(long gold)
         {
             _Current = gold;
-        }
-
-        public void DecreaseGold(long amount)
-        {
-            if (IsDecreaseGold(amount))
-            {
-                _Current -= amount;
-            }
         }
 
         public void IncreaseGold(long amount)
@@ -26,9 +23,20 @@
             }
         }
 
-        public bool IsDecreaseGold(long gold)
+        public bool IsDecreaseGold(long amount)
         {
-            return _Current - gold >= 0;
+            bool isDecreaseGold = _Current - amount >= 0;
+
+            if (isDecreaseGold)
+            {
+                _Current -= amount;
+            }
+            else
+            {
+                _Current = 0;
+            }
+
+            return isDecreaseGold;
         }
     }
 }

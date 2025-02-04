@@ -1,12 +1,18 @@
 ﻿using System.Text;
+using System.Text.Json.Serialization;
 
 namespace TextRPG
 {
     internal class ShopItem
     {
-        public Item ItemData;
-        public long Price;
-        public bool IsPurchase;
+        public long ShopId { get; set; }
+        public long Price { get; set; }
+        public bool IsPurchase { get; set; }
+
+        [JsonIgnore]
+        public Item ItemData => DataManager.Instance.ItemDatas[ShopId];
+
+        [JsonIgnore]
         public long SalePrice => (long)(Price * 0.85f);
 
         public string GetShopItemInfo()

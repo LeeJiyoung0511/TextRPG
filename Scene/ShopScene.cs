@@ -21,22 +21,19 @@ namespace TextRPG
         {
             DisplayText();
             DisplayShopItem();
-            base.Display();
         }
 
         public void DisplayShopItem(bool isPurchaseScene = false)
         {
-            ShopItem[] shopItems = DataManager.ShopItemDatas;
-
-            for (int i = 0; i < shopItems.Length; i++)
+            foreach(var shopItem in DataManager.Instance.ShopItemDatas.Values)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("- ");
                 if (isPurchaseScene)
                 {
-                    sb.Append($"{i + 1}.");
+                    sb.Append($"{shopItem.ShopId}.");
                 }
-                Console.WriteLine($"\n{sb}{shopItems[i].GetShopItemInfo()}");
+                Console.WriteLine($"\n{sb}{shopItem.GetShopItemInfo()}");
             }
         }
 

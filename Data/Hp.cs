@@ -1,9 +1,13 @@
-﻿namespace TextRPG
+﻿using Newtonsoft.Json;
+
+namespace TextRPG
 {
     internal class Hp
     {
+        [JsonIgnore]
         public int Current => _Current;
 
+        [JsonProperty]
         private int _Current;
 
         private int _MinHp = 0;

@@ -14,7 +14,6 @@ namespace TextRPG
 
     internal class Dungeon
     {
-        public int Id { get; set; }
         public int RecommendDP;
         public DungeonLevel DungeonLevel;
         public long BaseRewardGold;
@@ -63,17 +62,16 @@ namespace TextRPG
             Console.WriteLine($"{TextPrintManager.GetDescription(DungeonLevel)}을 클리어 하였습니다.");
             Console.WriteLine("\n[탐험결과]");
 
+            int currentHp = GameData.Player.Hp.Current;
             int useHp = GetUseHp(currentDP);
-            int decreasedHp = 0;
-            if (GameData.Player.Hp.Current - useHp >= 0)
-            {
-                decreasedHp = GameData.Player.Hp.Current - useHp;
-            }
-            Console.WriteLine($"\n체력 {GameData.Player.Hp.Current} -> {decreasedHp}");
+            int decreasedHp = decreasedHp = currentHp - useHp >= 0 ? currentHp - useHp : 0;
+
+            Console.WriteLine($"\n체력 {currentHp} -> {decreasedHp}");
             GameData.Player.Hp.DecreaseHp(useHp);
 
-            int rewardGold = GetReceiveRewardGold(currentAP);
-            Console.WriteLine($"\nGold {GameData.Gold.Current} -> {GameData.Gold.Current + rewardGold}");
+            long currentGold = GameData.Gold.Current;
+            long rewardGold = GetReceiveRewardGold(currentAP);
+            Console.WriteLine($"\nGold {currentGold} -> {currentGold + rewardGold}");
             GameData.Gold.IncreaseGold(rewardGold);
 
             GameData.Player.LevelUp();
@@ -89,14 +87,14 @@ namespace TextRPG
             return new Random().Next(useMinHp, useMaxHp + 1);
         }
 
-        private int GetReceiveRewardGold(float currentAP)
+        private long GetReceiveRewardGold(float currentAP)
         {
-            int addRewardMinVaule = (int)currentAP;
-            int addRewardMaxVaule = (int)currentAP * 2;
+            long addRewardMinVaule = (int)currentAP;
+            long addRewardMaxVaule = (int)currentAP * 2;
 
-            float addRewardRate = new Random().Next(addRewardMinVaule, addRewardMaxVaule + 1) * 0.01f;
+            float addRewardRate = new Random().NextInt64(addRewardMinVaule, addRewardMaxVaule + 1) * 0.01f;
 
-            return (int)(BaseRewardGold * addRewardRate);
+            return (long)(BaseRewardGold * addRewardRate);
         }
 
         private void Failure()

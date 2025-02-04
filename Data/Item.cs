@@ -1,7 +1,9 @@
-﻿using System.Text;
+﻿using Newtonsoft.Json;
+using System.Text;
 
 namespace TextRPG
 {
+
     public enum ItemType
     {
         Weapon,
@@ -10,33 +12,26 @@ namespace TextRPG
 
     internal class Item
     {
-        public string Name;
-        public string Description;
-        public float AttackPower;
-        public float DefensePower;
+        public long Id { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public float AttackPower { get; set; }
+        public float DefensePower { get; set; }
+        public ItemType ItemType { get; set; }
 
+        [JsonIgnore]
         public bool IsEquipped
         {
-            get => isEquipped;
+            get => _IsEquipped;
             set
             {
-                isEquipped = value;
+                _IsEquipped = value;
                 UpdateEquipState();
             }
         }
-        private bool isEquipped = false;
 
-        public int OrderNumber;
-        public ItemType ItemType;
-
-        public Item()
-        {
-            Name = "";
-            Description = "";
-            AttackPower = 0;
-            DefensePower = 0;
-            OrderNumber = 0;
-        }
+        [JsonProperty]
+        private bool _IsEquipped = false;
 
         public string GetItemInfo()
         {
@@ -67,14 +62,14 @@ namespace TextRPG
         {
             if(IsEquipped)
             {
-                DataManager.EquippedItems.Add(ItemType, this);
+                DataManager.Instance.EquippedItems.Add(ItemType, this);
                 GameData.Player.Stat.AddAttackPower += AttackPower;
                 GameData.Player.Stat.AddDefensePower += DefensePower;
                 TextPrintManager.ColorWriteLine($"\n{Name}을 장착했습니다.", ConsoleColor.Cyan);
             }
             else
             {
-                DataManager.EquippedItems.Remove(ItemType);
+                DataManager.Instance.EquippedItems.Remove(ItemType);
                 GameData.Player.Stat.AddAttackPower -= AttackPower;
                 GameData.Player.Stat.AddDefensePower -= DefensePower;
                 TextPrintManager.ColorWriteLine($"\n{Name}을 장착해제했습니다.", ConsoleColor.Cyan);

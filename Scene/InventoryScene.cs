@@ -20,14 +20,13 @@ namespace TextRPG
         public override void Display()
         {
             DisPlayHaveItems();
-            base.Display();
         }
 
         public void DisPlayHaveItems(bool isEquipScene = false)
         {
             Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n\n[아이템목록]");
 
-            for (int i = 0; i < DataManager.HaveItems.Count; i++)
+            for (int i = 0; i < DataManager.Instance.HaveItems.Count; i++)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("- ");
@@ -35,7 +34,7 @@ namespace TextRPG
                 {
                     sb.Append($"{i + 1}.");
                 }
-                Console.WriteLine($"{sb}{DataManager.HaveItems[i].GetItemInfo()}");
+                Console.WriteLine($"{sb}{DataManager.Instance.HaveItems[i].GetItemInfo()}");
             }
 
         }

@@ -1,15 +1,20 @@
 ﻿using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace TextRPG
 {
     internal class Stat
     {
-        public float AttackPower => baseAttackPower + AddAttackPower;
         public float baseAttackPower;
         public float AddAttackPower;
-        public float DefensePower => baseDefensePower + AddDefensePower;
+        [JsonIgnore]
+        public float AttackPower => baseAttackPower + AddAttackPower;
+
         public float baseDefensePower;
         public float AddDefensePower;
+        [JsonIgnore]
+        public float DefensePower => baseDefensePower + AddDefensePower;
+
 
         public Stat(float aP,float dP)
         {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TextRPG
+﻿namespace TextRPG
 {
     internal class Game
     {
@@ -15,27 +13,37 @@ namespace TextRPG
 
         static void Main(string[] args)
         {
-            Initialize();
-            Display();
+            //프로그램이 종료되는 시점에 저장
+            AppDomain.CurrentDomain.ProcessExit += SaveData;
+
+            //데이터 로드
+            DataManager.Instance.Load();
+
+            InputPlayerName();
+            DisplayVillageMessage();
         }
 
-        static private void Initialize()
+        static void SaveData(object sender, EventArgs e)
         {
-            GameData.Player = new Player("플레이어",Job.Warrior,10,5);
-            GameData.Gold = new Gold(1500);
+            DataManager.Instance.Save();
         }
 
-        static public void Display()
+        static public void InputPlayerName()
+        {
+            Console.WriteLine($"안녕하세요!!");
+            Console.WriteLine($"용사님의 이름을 알려주세요");
+            string name = Console.ReadLine();
+            DataManager.Instance.Player.Name = name;
+        }
+
+        static public void DisplayVillageMessage()
         {
             TextPrintManager.ColorWriteLine("【마을】", ConsoleColor.DarkYellow);
-
-            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다." +
-                "\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
+            Console.WriteLine($"스파르타 마을에 오신 {DataManager.Instance.Player.Name}님 환영합니다." +
+            "\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
 
             SceneBase scene = new SceneBase(0);
             scene.NextScenes = _nextScenes;
-
-            scene.Display();
             scene.InputNextAction();
         }
     }

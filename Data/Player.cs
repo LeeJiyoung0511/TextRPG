@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.Reflection.Emit;
 
 namespace TextRPG
@@ -11,14 +12,20 @@ namespace TextRPG
 
     internal class Player
     {
+        [JsonIgnore]
         public int Level => _Level;
 
-        public string Name;
-        public Job Job;
-        public Stat Stat;
-        public Hp Hp;
+        public string Name { get; set; }
+
+        public Job Job { get; set; }
+
+        public Stat Stat { get; set; }
+
+        public Hp Hp { get; set; }
 
         private int _DefaultHp = 100;
+
+        [JsonProperty]
         private int _Level = 1;
 
         public Player(string name, Job job, float aP, float dP)

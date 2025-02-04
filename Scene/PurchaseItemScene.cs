@@ -11,6 +11,7 @@
         {
             SceneName = "아이템구매";
             NextScenes = _nextScenes;
+            OnInputInvalidActionNumber = PurchaseItem;
         }
 
         public override void OnStart(string sceneName = "")
@@ -24,58 +25,37 @@
             DisplayShopItem(true);
         }
 
-        public override void InputNextAction()
+        private void PurchaseItem(int number)
         {
-            string inputNumber = "";
-            int number = 0;
+            ShopItem purchaseItem = DataManager.Instance.ShopItemDatas[number];
 
-            ShopItem purchaseItem = new ShopItem();
-
-            while (true)
+            if (purchaseItem == null)
             {
-                DisplayNextAction();
+                TextPrintManager.ColorWriteLine("\n잘못된 입력입니다.", ConsoleColor.DarkRed);
+                return;
+            }
 
-                Console.Write("\n원하시는 행동을 입력해주세요.\n>>");
-                inputNumber = Console.ReadLine();
-                number = int.Parse(inputNumber);
-
-                if (_nextScenes.ContainsKey(number))
+            //이미 구매한 아이템이라면
+            if (purchaseItem.IsPurchase)
+            {
+                TextPrintManager.ColorWriteLine("\n이미 구매한 아이템 입니다", ConsoleColor.DarkRed);
+                return;
+            }
+            //구매가 가능하다면
+            else
+            {
+                //보유 금액이 충분하다면
+                if (GameData.Gold.IsDecreaseGold(purchaseItem.Price))
                 {
-                    _nextScenes[number].OnStart();
-                    break;
+                    TextPrintManager.ColorWriteLine("\n구매를 완료했습니다.", ConsoleColor.Cyan);
+                    purchaseItem.IsPurchase = true;
+                    DataManager.Instance.HaveItems.Add(purchaseItem.ItemData);
                 }
-               
-                purchaseItem = DataManager.ShopItemDatas[number - 1];
-
-                if (purchaseItem == null)
-                {
-                    TextPrintManager.ColorWriteLine("\n잘못된 입력입니다.", ConsoleColor.DarkRed);
-                    continue;
-                }
-
-                //이미 구매한 아이템이라면
-                if (purchaseItem.IsPurchase)
-                {
-                    TextPrintManager.ColorWriteLine("\n이미 구매한 아이템 입니다", ConsoleColor.DarkRed);
-                }
-                //구매가 가능하다면
+                // 보유금액이 부족하다면
                 else
                 {
-                    //보유 금액이 충분하다면
-                    if (GameData.Gold.IsDecreaseGold(purchaseItem.Price))
-                    {
-                        TextPrintManager.ColorWriteLine("\n구매를 완료했습니다.", ConsoleColor.Cyan);
-                        purchaseItem.IsPurchase = true;
-                        GameData.Gold.DecreaseGold(purchaseItem.Price);
-                        DataManager.HaveItems.Add(purchaseItem.ItemData);                
-                    }
-                    // 보유금액이 부족하다면
-                    else
-                    {
-                        TextPrintManager.ColorWriteLine("\n골드가 부족합니다.", ConsoleColor.DarkRed);
-                    }
+                    TextPrintManager.ColorWriteLine("\n골드가 부족합니다.", ConsoleColor.DarkRed);
                 }
-                continue;
             }
         }
     }

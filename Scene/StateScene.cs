@@ -28,8 +28,6 @@
             Console.WriteLine($"체력 : {player.Hp.Current}");
             Console.WriteLine($"Gold : {GameData.Gold.Current} G");
             Console.WriteLine("---------------------------------------------");
-
-            base.Display();
         }
 
         /// <summary>

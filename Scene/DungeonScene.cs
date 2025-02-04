@@ -11,63 +11,42 @@
         {
             SceneName = "던전입장";
             NextScenes = _nextScenes;
+            OnInputInvalidActionNumber = EntryDungeon;
         }
 
         public override void Display()
         {
-            Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
+            Console.WriteLine("\n이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
             DisplayDungeonList();
         }
 
         private void DisplayDungeonList()
         {
-            for (int i = 0; i < DataManager.DungeonDatas.Length; i++)
+            for (int i = 0; i < DataManager.Instance.DungeonDatas.Count; i++)
             {
-                Dungeon dungeon = DataManager.DungeonDatas[i];
-                dungeon.Id = i + 1;
-                Console.WriteLine($"\n{i + 1}.{DataManager.DungeonDatas[i].GetDungeonInfo()}");
+                Dungeon dungeon = DataManager.Instance.DungeonDatas[i + 1];
+                Console.WriteLine($"\n{i + 1}.{dungeon.GetDungeonInfo()}");
             }
         }
 
-        public override void InputNextAction()
+        private void EntryDungeon(int number)
         {
-            string inputNumber = "";
-            int number = 0;
-
-            Dungeon selectedDungeon;
-
-            while (true)
+            if (!GameData.IsCanEntryDungeon)
             {
-                base.Display();
+                TextPrintManager.ColorWriteLine("이대로 가다간 기절해요! 회복하고 오세요!", ConsoleColor.DarkRed);
+                return;
+            }
 
-                Console.Write("\n원하시는 행동을 입력해주세요.\n>>");
-                inputNumber = Console.ReadLine();
-                number = int.Parse(inputNumber);
-
-                if (_nextScenes.ContainsKey(number))
-                {
-                    _nextScenes[number].OnStart();
-                    break;
-                }
-
-                if (!GameData.IsCanEntryDungeon)
-                {
-                    TextPrintManager.ColorWriteLine("이대로 가다간 기절해요! 회복하고 오세요!", ConsoleColor.DarkRed);
-                    continue;
-                }
-
-                selectedDungeon = DataManager.DungeonDatas.FirstOrDefault(x=>x.Id == number);
-                if (selectedDungeon == null)
-                {
-                    TextPrintManager.ColorWriteLine("잘못된 입력입니다", ConsoleColor.DarkRed);
-                }
-                else
-                {
-                    float currentAP = GameData.Player.Stat.AttackPower;
-                    float currentDP = GameData.Player.Stat.DefensePower;
-                    selectedDungeon.EntryDungeon(currentDP,currentAP);
-                }
-                continue;
+            Dungeon selectedDungeon = DataManager.Instance.DungeonDatas[number];
+            if (selectedDungeon == null)
+            {
+                TextPrintManager.ColorWriteLine("잘못된 입력입니다", ConsoleColor.DarkRed);
+            }
+            else
+            {
+                float currentAP = GameData.Player.Stat.AttackPower;
+                float currentDP = GameData.Player.Stat.DefensePower;
+                selectedDungeon.EntryDungeon(currentDP, currentAP);
             }
         }
     }

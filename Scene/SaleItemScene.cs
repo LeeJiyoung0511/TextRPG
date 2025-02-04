@@ -11,6 +11,7 @@
         {
             SceneName = "아이템판매";
             NextScenes = _nextScenes;
+            OnInputInvalidActionNumber = SaleItem;
         }
 
         public override void OnStart(string sceneName = "")
@@ -27,55 +28,32 @@
 
         private void DisplayItem()
         {
-            for (int i = 0; i < DataManager.HaveItems.Count; i++)
+            for (int i = 0; i < DataManager.Instance.HaveItems.Count; i++)
             {
-                Item item = DataManager.HaveItems[i];
-                item.OrderNumber = i + 1;
-                Console.WriteLine($"- {i + 1}.{item.GetItemInfo()} | {DataManager.GetShopItem(item).SalePrice} G \n");
+                Item item = DataManager.Instance.HaveItems[i];
+                Console.WriteLine($"- {i + 1}.{item.GetItemInfo()} | {DataManager.Instance.ShopItemDatas[item.Id]} G \n");
             }
-
         }
 
-        public override void InputNextAction()
+        private void SaleItem(int number)
         {
-            string inputNumber = "";
-            int number = 0;
+            ShopItem saleItem = DataManager.Instance.ShopItemDatas[number];
 
-            Item saleItem = new Item();
-
-            while (true)
+            if (saleItem == null)
             {
-                DisplayNextAction();
-
-                Console.Write("\n원하시는 행동을 입력해주세요.\n>>");
-                inputNumber = Console.ReadLine();
-                number = int.Parse(inputNumber);
-
-                if (_nextScenes.ContainsKey(number))
-                {
-                    _nextScenes[number].OnStart();
-                    break;
-                }
-
-                saleItem = DataManager.HaveItems.FirstOrDefault(x => x.OrderNumber == number);
-
-                if (saleItem == null)
-                {
-                    TextPrintManager.ColorWriteLine("\n잘못된 입력입니다.", ConsoleColor.DarkRed);
-                }
-                else
-                {
-                    if (saleItem.IsEquipped)
-                    {
-                        saleItem.IsEquipped = false;
-                    }
-                    DataManager.HaveItems.Remove(saleItem);
-                    TextPrintManager.ColorWriteLine($"{saleItem.Name}이 판매되었습니다.",ConsoleColor.Cyan);
-                    GameData.Gold.IncreaseGold(DataManager.GetShopItem(saleItem).SalePrice);
-                }
-                continue;
+                TextPrintManager.ColorWriteLine("\n잘못된 입력입니다.", ConsoleColor.DarkRed);
+                return;
             }
-
+            else
+            {
+                if (saleItem.ItemData.IsEquipped)
+                {
+                    saleItem.ItemData.IsEquipped = false;
+                }
+                DataManager.Instance.HaveItems.Remove(saleItem.ItemData);
+                TextPrintManager.ColorWriteLine($"{saleItem.ItemData.Name}이 판매되었습니다.", ConsoleColor.Cyan);
+                GameData.Gold.IncreaseGold(saleItem.SalePrice);
+            }
         }
     }
 }
