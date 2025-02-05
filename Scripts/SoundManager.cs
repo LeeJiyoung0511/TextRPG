@@ -8,7 +8,7 @@ namespace TextRPG
 
         public static void PlayBGM()
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Sound",FILENAME_BGM);
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sound", FILENAME_BGM);
 
             if (!File.Exists(filePath))
             {
@@ -16,12 +16,17 @@ namespace TextRPG
                 return;
             }
 
-            using (var audioFile = new MediaFoundationReader(filePath))
-            using (var outputDevice = new DirectSoundOut())
+            var audioFile = new MediaFoundationReader(filePath);
+            var outputDevice = new DirectSoundOut();
+
+            outputDevice.Init(audioFile);
+            outputDevice.Play();
+
+            outputDevice.PlaybackStopped += (sender, args) =>
             {
-                outputDevice.Init(audioFile);
+                audioFile.Position = 0;
                 outputDevice.Play();
-            }
+            };
         }
 
     }
